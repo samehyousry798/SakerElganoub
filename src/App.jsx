@@ -4,33 +4,14 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
 import Projects from './components/Projects';
-import Stats from './components/Stats';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import PageLoader from './components/PageLoader';
-import { ArrowUp, MessageSquare } from 'lucide-react';
-import { companyData } from './data/companyData';
+import { ArrowUp, Mail } from 'lucide-react';
 import './App.css';
 
 export default function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  // Initial website load chic animation (يعمل تلقائياً عند فتح الموقع لأول مرة)
-  const [loadingState, setLoadingState] = useState({
-    isLoading: true,
-    targetTitle: 'شركة صقر الجنوب للمقاولات العامة (SGC)',
-    targetId: null,
-  });
-
-  const sectionTitles = {
-    '#hero': 'الصفحة الرئيسية | صقر الجنوب',
-    '#about': 'من نحن | ريادة وخبرات المقاولات',
-    '#services': 'خدمات الحفر والردم والإنشائيات',
-    '#projects': 'مشاريعنا وسابقة الأعمال الكبرى',
-    '#stats': 'أرقامنا وإحصائيات التنفيذ',
-    '#partners': 'شركاء النجاح والجهات المعتمدة',
-    '#contact': 'طلب مقايسة والتواصل المباشر',
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,72 +21,56 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Intercept all hash anchor clicks to provide instant jumping with chic loading transition
+  // Smooth scroll reveal observer
   useEffect(() => {
-    const handleAnchorClick = (e) => {
-      const anchor = e.target.closest('a[href^="#"]');
-      if (!anchor) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
 
-      const href = anchor.getAttribute('href');
-      if (!href || href === '#' || !href.startsWith('#')) return;
-
-      const targetEl = document.querySelector(href);
-      if (!targetEl) return;
-
-      // Stop default smooth scrolling so the page doesn't scroll through everything
-      e.preventDefault();
-
-      const title = sectionTitles[href] || anchor.innerText.trim() || 'جاري الانتقال...';
-
-      setLoadingState({
-        isLoading: true,
-        targetTitle: title,
-        targetId: href,
-      });
+    const observeAll = () => {
+      const elements = document.querySelectorAll('.scroll-reveal:not(.is-revealed)');
+      elements.forEach((el) => observer.observe(el));
     };
 
-    document.addEventListener('click', handleAnchorClick);
-    return () => document.removeEventListener('click', handleAnchorClick);
+    // Initial pass
+    observeAll();
+
+    // Observe dynamically rendered or updated items
+    const mutationObserver = new MutationObserver(() => {
+      observeAll();
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
   }, []);
 
-  const handleLoadingComplete = () => {
-    if (loadingState.targetId) {
-      const targetEl = document.querySelector(loadingState.targetId);
-      if (targetEl) {
-        const headerOffset = 80;
-        const elementPosition = targetEl.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - (loadingState.targetId === '#hero' ? 0 : headerOffset);
-
-        // Instant jump behind the loading screen
-        window.scrollTo({
-          top: Math.max(0, offsetPosition),
-          behavior: 'instant'
-        });
-
-        history.pushState(null, null, loadingState.targetId);
-      }
-    }
-    // Fade out loading
-    setLoadingState(prev => ({ ...prev, isLoading: false }));
-  };
-
   const scrollToTop = () => {
-    setLoadingState({
-      isLoading: true,
-      targetTitle: 'العودة لأعلى الصفحة',
-      targetId: '#hero'
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
     });
   };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col selection:bg-blue-600 selection:text-white relative">
-      {/* Chic Loading Screen on Section Transitions */}
-      <PageLoader 
-        isLoading={loadingState.isLoading}
-        targetTitle={loadingState.targetTitle}
-        onComplete={handleLoadingComplete}
-      />
-
       {/* Top Header / Navigation */}
       <Header />
 
@@ -123,10 +88,7 @@ export default function App() {
         {/* 4. Projects Showcase Section */}
         <Projects />
 
-        {/* 5. Numbers & Stats Section */}
-        <Stats />
-
-        {/* 6. Partners & Clients Section */}
+        {/* 5. Partners & Clients Section */}
         <Partners />
 
         {/* 7. Contact Us Section with Map & Form */}
@@ -138,18 +100,16 @@ export default function App() {
 
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 left-6 z-40 flex flex-col items-center gap-3">
-        {/* WhatsApp direct floating button */}
+        {/* Contact direct floating button */}
         <a
-          href={`https://wa.me/${companyData.contact.whatsapp.replace(/[^0-9]/g, '')}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="تواصل عبر واتساب"
-          className="w-13 h-13 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-lg hover:shadow-emerald-500/40 hover:scale-110 active:scale-95 transition-all group relative"
+          href="#contact"
+          aria-label="تواصل معنا"
+          className="w-13 h-13 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-lg hover:shadow-blue-600/40 hover:scale-110 active:scale-95 transition-all group relative border-2 border-white/20"
         >
-          <MessageSquare size={26} />
+          <Mail size={22} />
           {/* Tooltip */}
           <span className="absolute right-16 bg-slate-900 text-white text-xs font-semibold py-1.5 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap shadow-md">
-            تواصل معنا عبر واتساب
+            تواصل معنا مباشرة
           </span>
         </a>
 

@@ -26,13 +26,13 @@ export default function About() {
     <section id="about" className="py-20 lg:py-28 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs sm:text-sm font-bold mb-3">
-            <Shovel size={15} />
-            <span>عن صقر الجنوب ({companyData.shortCode})</span>
+            <Building2 size={15} />
+            <span>من نحن</span>
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
-            خبرة ميدانية متخصصة في الحفر والردم وتأهيل التربة للمشاريع العملاقة
+            خبرة عريقة في المقاولات العامة وتجهيز المواقع والمشاريع الإنشائية
           </h2>
           <div className="w-20 h-1.5 bg-blue-600 rounded-full mx-auto mt-4" />
         </div>
@@ -40,32 +40,31 @@ export default function About() {
         {/* Story & Image Showcase */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
           {/* Left Column: Images Collage */}
-          <div className="lg:col-span-6 relative">
+          <div className="lg:col-span-6 relative scroll-reveal scroll-delay-100">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
                 <img
-                  src="https://images.unsplash.com/photo-1541888946425-d0fbb186156f?auto=format&fit=crop&w=600&q=80"
-                  alt="معدات الحفر والردم في الموقع"
+                  src="/projects/hacienda-waters-1.jpg"
+                  alt="مشروع هاسيندا ووترز - الساحل الشمالي"
                   className="rounded-2xl shadow-lg object-cover w-full h-56 border-2 border-slate-100"
                 />
-                <div className="p-5 rounded-2xl bg-blue-600 text-white shadow-xl">
-                  <span className="block text-3xl font-black mb-1">+8M م³</span>
-                  <span className="text-xs font-semibold text-blue-100">
-                    أعمال حفر وردم وتسوية تم تسليمها بنجاح واختبارات معتمدة
-                  </span>
-                </div>
+                <img
+                  src="/projects/hacienda-waters-3.jpg"
+                  alt="مشروع هاسيندا ووترز - تصميم الفيلات"
+                  className="rounded-2xl shadow-lg object-cover w-full h-56 border-2 border-slate-100"
+                />
               </div>
               <div className="space-y-4 pt-6">
                 <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 text-slate-800">
-                  <span className="block text-2xl font-black text-blue-900 mb-1">المقر: الإسكندرية</span>
+                  <span className="block text-2xl font-black text-blue-900 mb-1">المقر: قطاع الساحل الشمالي</span>
                   <div className="flex items-center gap-1 text-xs font-medium text-slate-600 mt-1">
                     <MapPin size={13} className="text-amber-500" />
-                    <span>العجمي - انطلاقة العمل لكافة المحافظات</span>
+                    <span>الإسكندرية (شاطئ النخيل) - انطلاقة لكافة المشاريع</span>
                   </div>
                 </div>
                 <img
-                  src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80"
-                  alt="أسطول معدات ثقيلة"
+                  src="/projects/heneish.webp"
+                  alt="مشروع هاسيندا حنيش - أعمال الحفر والردم"
                   className="rounded-2xl shadow-lg object-cover w-full h-56 border-2 border-slate-100"
                 />
               </div>
@@ -73,9 +72,9 @@ export default function About() {
           </div>
 
           {/* Right Column: Story & Highlights */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-6 scroll-reveal scroll-delay-200">
             <h3 className="text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
-              نمتلك الإمكانيات والآليات لإنجاز أصعب أعمال التربة في أضيق الجداول الزمنية
+              نمتلك الإمكانيات والآليات لإنجاز أصعب المشاريع الإنشائية وأعمال المقاولات في أضيق الجداول الزمنية
             </h3>
             <p className="text-slate-600 leading-relaxed text-base sm:text-lg">
               {companyData.about.story}
@@ -108,7 +107,7 @@ export default function About() {
 
         {/* Company Core Values Grid */}
         <div className="mt-12 pt-12 border-t border-slate-100">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 scroll-reveal">
             <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
               ركائز العمل الميداني في صقر الجنوب
             </h3>
@@ -119,7 +118,8 @@ export default function About() {
             {companyData.about.values.map((val, idx) => (
               <div
                 key={val.title}
-                className="p-6 rounded-2xl bg-white border border-slate-200/80 hover:border-blue-400 hover:shadow-lg transition-all group"
+                style={{ transitionDelay: `${(idx + 1) * 100}ms` }}
+                className="p-6 rounded-2xl bg-white border border-slate-200/80 hover:border-blue-400 hover:shadow-lg transition-all group scroll-reveal"
               >
                 <div className="w-12 h-12 rounded-xl bg-blue-50 group-hover:bg-blue-600 group-hover:text-white text-blue-700 flex items-center justify-center mb-4 transition-colors">
                   {valueIcons[idx] || <CheckCircle2 size={24} />}

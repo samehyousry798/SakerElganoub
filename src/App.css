@@ -7,3 +7,56 @@
 .animate-fade-in {
   animation: fadeIn 0.6s ease-out forwards;
 }
+
+/* Genuine scroll reveal animation - elements start hidden and glide in smoothly upon scrolling */
+.scroll-reveal {
+  opacity: 0 !important;
+  transform: translateY(40px) !important;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Delay helper utilities */
+.scroll-delay-100 {
+  transition-delay: 100ms !important;
+}
+.scroll-delay-200 {
+  transition-delay: 200ms !important;
+}
+.scroll-delay-300 {
+  transition-delay: 300ms !important;
+}
+.scroll-delay-400 {
+  transition-delay: 400ms !important;
+}
+
+/* Infinite Horizontal Marquee for Partners */
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marqueeScroll 32s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .animate-marquee {
+    animation: none !important;
+  }
+}

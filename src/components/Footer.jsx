@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-  Building2, 
   Phone, 
   Mail, 
   MapPin, 
@@ -13,10 +12,10 @@ export default function Footer() {
   const quickLinks = [
     { name: 'الرئيسية', href: '#hero' },
     { name: 'عن صقر الجنوب', href: '#about' },
-    { name: 'خدمات الحفر والردم', href: '#services' },
-    { name: 'مشاريع التربة المنفذة', href: '#projects' },
-    { name: 'أرقام وإنجازات', href: '#stats' },
-    { name: 'طلب معاينة وتسعير', href: '#contact' },
+    { name: 'خدماتنا', href: '#services' },
+    { name: 'مشاريعنا', href: '#projects' },
+    { name: 'شركاؤنا', href: '#partners' },
+    { name: 'تواصل معنا', href: '#contact' },
   ];
 
   return (
@@ -24,7 +23,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800/80">
           {/* Brand Info (4 cols) */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="lg:col-span-4 space-y-4 scroll-reveal">
             <div className="flex items-center gap-3.5">
               <img 
                 src="/logo-white.png" 
@@ -36,7 +35,7 @@ export default function Footer() {
                   {companyData.name}
                 </span>
                 <span className="text-xs text-blue-400 font-bold">
-                  أعمال الحفر والردم والإنشائيات العامة
+                  شريك مثالي للنجاح
                 </span>
               </div>
             </div>
@@ -94,7 +93,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links (3 cols) */}
-          <div className="lg:col-span-3 space-y-4">
+          <div className="lg:col-span-3 space-y-4 scroll-reveal scroll-delay-100">
             <h4 className="text-base font-bold text-white relative inline-block">
               روابط الموقع السريعة
               <span className="block w-8 h-1 bg-blue-500 rounded-full mt-1.5" />
@@ -115,7 +114,7 @@ export default function Footer() {
           </div>
 
           {/* Services list (2 cols) */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-4 scroll-reveal scroll-delay-200">
             <h4 className="text-base font-bold text-white relative inline-block">
               خدمات التربة والإنشاءات
               <span className="block w-8 h-1 bg-blue-500 rounded-full mt-1.5" />
@@ -130,9 +129,9 @@ export default function Footer() {
           </div>
 
           {/* Contact summary (3 cols) */}
-          <div className="lg:col-span-3 space-y-4">
+          <div className="lg:col-span-3 space-y-4 scroll-reveal scroll-delay-300">
             <h4 className="text-base font-bold text-white relative inline-block">
-              المقر الرئيسي للإدارة
+              مقر إدارة العمليات
               <span className="block w-8 h-1 bg-blue-500 rounded-full mt-1.5" />
             </h4>
             <div className="space-y-3 text-xs sm:text-sm text-slate-400">
@@ -154,7 +153,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 font-bold mt-1"
               >
-                <span>موقع العجمي على Google Maps</span>
+                <span>موقع المقر على Google Maps</span>
                 <ExternalLink size={12} />
               </a>
             </div>
@@ -167,7 +166,7 @@ export default function Footer() {
             جميع الحقوق محفوظة © {new Date().getFullYear()} {companyData.fullName} ({companyData.englishName})
           </p>
           <div className="flex items-center gap-4">
-            <span>المقر: العجمي - الإسكندرية</span>
+            <span>المقر: قطاع الساحل الشمالي - الإسكندرية</span>
             <span>•</span>
             <span>سجل تجاري وبطاقة ضريبية معتمدة</span>
           </div>

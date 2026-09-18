@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Award, Briefcase, Users, ThumbsUp } from 'lucide-react';
 import { companyData } from '../data/companyData';
 
-function CounterItem({ targetValue, suffix, label, description, icon }) {
+function CounterItem({ targetValue, suffix, label, description, icon, idx }) {
   const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
   const elementRef = useRef(null);
@@ -49,7 +49,8 @@ function CounterItem({ targetValue, suffix, label, description, icon }) {
   return (
     <div 
       ref={elementRef}
-      className="p-6 sm:p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center hover:bg-white/15 transition-all group"
+      style={{ transitionDelay: `${((idx || 0) + 1) * 100}ms` }}
+      className="p-6 sm:p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center hover:bg-white/15 transition-all group scroll-reveal"
     >
       <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-white/20 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
         {icon}
@@ -84,7 +85,7 @@ export default function Stats() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Title */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-14 scroll-reveal">
           <span className="inline-block px-3.5 py-1 rounded-full bg-blue-800/80 border border-blue-700 text-blue-200 text-xs sm:text-sm font-bold mb-3">
             أرقام وإنجازات موثقة
           </span>
@@ -99,6 +100,7 @@ export default function Stats() {
           {companyData.stats.map((item, idx) => (
             <CounterItem
               key={item.id}
+              idx={idx}
               targetValue={item.value}
               suffix={item.suffix}
               label={item.label}

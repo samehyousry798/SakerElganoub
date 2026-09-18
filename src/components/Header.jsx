@@ -6,8 +6,6 @@ import {
   Menu, 
   X, 
   ArrowLeft, 
-  MessageSquareText, 
-  ShieldCheck,
   MapPin
 } from 'lucide-react';
 import { companyData } from '../data/companyData';
@@ -27,16 +25,14 @@ export default function Header() {
   const navLinks = [
     { name: 'الرئيسية', href: '#hero' },
     { name: 'من نحن', href: '#about' },
-    { name: 'خدمات الحفر والردم', href: '#services' },
+    { name: 'خدماتنا', href: '#services' },
     { name: 'مشاريعنا', href: '#projects' },
-    { name: 'أرقامنا', href: '#stats' },
     { name: 'شركاؤنا', href: '#partners' },
-    { name: 'تواصل معنا', href: '#contact' },
   ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
-      {/* Top Bar (Contact Information & Alex Location) */}
+      {/* Top Bar (Contact Information & Location) */}
       <div className={`bg-[#0A2540] text-white text-xs transition-all duration-300 hidden md:block ${isScrolled ? 'py-1 opacity-95' : 'py-2.5'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <div className="flex items-center gap-6">
@@ -45,17 +41,10 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-blue-200 hover:text-white transition"
-              title="موقع المقر الرئيسي على خرائط جوجل"
+              title="موقع المقر على خرائط جوجل"
             >
               <MapPin size={13} className="text-amber-400" />
-              <span>المقر: العجمي - الإسكندرية</span>
-            </a>
-            <a 
-              href={`tel:${companyData.contact.mobile.replace(/\s+/g, '')}`} 
-              className="flex items-center gap-1.5 hover:text-blue-200 transition"
-            >
-              <Phone size={13} className="text-blue-300" />
-              <span dir="ltr">{companyData.contact.mobile}</span>
+              <span>المقر: قطاع الساحل الشمالي - الإسكندرية</span>
             </a>
             <a 
               href={`mailto:${companyData.contact.email}`} 
@@ -71,18 +60,13 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-1 text-blue-200">
-              <ShieldCheck size={14} className="text-emerald-400" />
-              <span>أسطول معدات ثقيلة معتمد</span>
-            </span>
             <a
-              href={`https://wa.me/${companyData.contact.whatsapp.replace(/[^0-9]/g, '')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition text-[11px]"
+              href="tel:01226883726"
+              className="inline-flex items-center gap-1.5 text-blue-100 hover:text-white font-bold transition text-xs"
             >
-              <MessageSquareText size={12} />
-              <span>واتساب المقاولات</span>
+              <Phone size={13} className="text-sky-400" />
+              <span>للتواصل:</span>
+              <span dir="ltr">01226883726</span>
             </a>
           </div>
         </div>
@@ -110,10 +94,10 @@ export default function Header() {
 
             <div className="hidden sm:flex flex-col text-right">
               <span className="text-base sm:text-lg font-black tracking-tight text-[#0A2540] group-hover:text-blue-700 transition leading-tight">
-                شركة صقر الجنوب للمقاولات
+                صقر الجنوب للمقاولات
               </span>
               <span className="text-[11px] text-blue-600 font-bold tracking-wide">
-                أعمال الحفر والردم والإنشائيات العامة
+                شريك مثالي للنجاح
               </span>
             </div>
           </a>
@@ -137,7 +121,7 @@ export default function Header() {
               href="#contact"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-md shadow-blue-600/20 hover:shadow-lg hover:shadow-blue-600/30 active:scale-95 transition-all"
             >
-              <span>طلب مقايسة حفر أو ردم</span>
+              <span>تواصل معنا</span>
               <ArrowLeft size={16} />
             </a>
           </div>
@@ -164,10 +148,10 @@ export default function Header() {
               />
               <div className="flex flex-col">
                 <span className="text-sm font-black text-[#0A2540]">
-                  شركة صقر الجنوب للمقاولات
+                  صقر الجنوب للمقاولات
                 </span>
                 <span className="text-[10px] text-blue-600 font-bold">
-                  أعمال الحفر والردم والإنشائيات
+                  شريك مثالي للنجاح
                 </span>
               </div>
             </div>
@@ -191,7 +175,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-center font-bold text-sm shadow-md transition"
               >
-                طلب مقايسة مشروع (حفر / ردم / إنشاء)
+                تواصل معنا مباشرة
               </a>
               <a
                 href={companyData.contact.mapUrl}
@@ -200,16 +184,7 @@ export default function Header() {
                 className="w-full py-2.5 rounded-xl bg-blue-50 text-blue-800 text-center font-bold text-sm border border-blue-200 transition flex items-center justify-center gap-2"
               >
                 <MapPin size={16} className="text-amber-500" />
-                <span>موقع المقر بالعجمي - الإسكندرية</span>
-              </a>
-              <a
-                href={`https://wa.me/${companyData.contact.whatsapp.replace(/[^0-9]/g, '')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 text-center font-bold text-sm border border-emerald-200 transition flex items-center justify-center gap-2"
-              >
-                <MessageSquareText size={16} />
-                <span>محادثة واتساب مباشرة</span>
+                <span>مقر إدارة العمليات - قطاع الساحل الشمالي</span>
               </a>
             </div>
           </div>

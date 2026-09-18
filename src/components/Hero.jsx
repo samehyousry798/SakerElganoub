@@ -1,66 +1,62 @@
 import React from 'react';
-import { ArrowLeft, ShieldCheck, MessageSquare } from 'lucide-react';
-import { companyData } from '../data/companyData';
+import { ArrowLeft, Mail } from 'lucide-react';
 
 export default function Hero() {
   return (
     <section 
       id="hero" 
-      className="relative w-full min-h-[85vh] lg:min-h-[92vh] flex items-center justify-center pt-36 sm:pt-40 pb-20 overflow-hidden bg-slate-950"
+      className="relative w-full min-h-screen flex items-center overflow-hidden bg-slate-950"
     >
-      {/* 1. الخلفية: صورة المعدات والحفارات في الأرض الرملية ممتدة بعرض الشاشة وخلف الكلام مباشرة */}
+      {/* الخلفية */}
       <img 
         src="/hero-sand.jpg" 
-        alt="أسطول حفارات ومعدات صقر الجنوب تعمل في تسوية أراضي رملية" 
+        alt="أسطول حفارات ومعدات صقر الجنوب" 
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
-      {/* 2. تراكب داكن قوي يبرز المعدات الرملية بوضوح ويضمن قراءة الكلام بنسبة 100% */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/65 to-slate-950/90 pointer-events-none" />
+      {/* تراكب داكن من اليمين للشمال (RTL) */}
+      <div className="absolute inset-0 bg-gradient-to-l from-slate-950/98 via-slate-950/75 to-slate-950/20 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/40 pointer-events-none" />
 
-      {/* 3. محتوى الهيدر: فائق الوضوح ومباشر بدون زحمة */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        
-        {/* شارة الشركة البارزة */}
-        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-blue-600 text-white text-xs sm:text-sm font-black shadow-xl mb-6 border border-blue-300/40">
-          <ShieldCheck size={18} className="text-white" />
-          <span>شركة صقر الجنوب للمقاولات العامة (SGC)</span>
+      {/* المحتوى - محاذاة يمين */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-32 pb-20">
+        <div className="max-w-2xl mr-0 ml-auto lg:ml-0 text-right">
+
+          {/* الاسم الرئيسي */}
+          <h1 className="font-black text-white leading-[1.1] tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)] mb-3">
+            <span className="block text-4xl sm:text-5xl lg:text-6xl text-white/80 font-bold">صقر الجنوب</span>
+            <span className="block text-5xl sm:text-6xl lg:text-7xl text-white">للمقاولات</span>
+          </h1>
+
+          {/* الشعار */}
+          <div className="flex items-center justify-end gap-3 my-6">
+            <span className="h-px flex-1 max-w-xs bg-gradient-to-l from-sky-400/80 to-transparent" />
+            <p className="text-2xl sm:text-3xl text-sky-300 font-black tracking-wide whitespace-nowrap">
+              شريك مثالي للنجاح
+            </p>
+          </div>
+
+          {/* أزرار */}
+          <div className="flex flex-wrap items-center justify-end gap-3 mt-8">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm sm:text-base shadow-xl shadow-blue-600/40 hover:shadow-blue-500/60 transition-all hover:-translate-y-0.5"
+            >
+              <Mail size={18} />
+              <span>تواصل معنا</span>
+            </a>
+
+            <a
+              href="#services"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-transparent hover:bg-white/10 text-white/80 hover:text-white font-bold text-sm sm:text-base border border-white/15 hover:border-white/30 transition-all"
+            >
+              <span>خدماتنا</span>
+              <ArrowLeft size={16} />
+            </a>
+          </div>
+
         </div>
-
-        {/* عنوان رئيسي واضح جداً وحاد التباين */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] mb-6">
-          أعمال الحفر والردم <br className="hidden sm:inline" />
-          <span className="text-sky-400">وتسوية الأراضي والإنشائيات</span>
-        </h1>
-
-        {/* سطر تعريفي عريض فائق الوضوح */}
-        <p className="text-base sm:text-xl md:text-2xl text-white font-bold max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] mb-8">
-          تنفيذ أضخم مشاريع تسوية المواقع والحفر الصخري والرملي بأحدث أساطيل الحفارات والمعدات الثقيلة في الإسكندرية والساحل الشمالي.
-        </p>
-
-        {/* أزرار الإجراء السريع بألوان زاهية وواضحة جداً */}
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-base sm:text-lg shadow-2xl shadow-blue-600/60 hover:shadow-blue-500/70 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
-          >
-            <span>طلب معاينة ومقايسة للموقع</span>
-            <ArrowLeft size={20} />
-          </a>
-
-          <a
-            href={`https://wa.me/${companyData.contact.whatsapp.replace(/[^0-9]/g, '')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-base sm:text-lg shadow-2xl shadow-emerald-600/60 hover:shadow-emerald-500/70 transition-all transform hover:-translate-y-0.5"
-          >
-            <MessageSquare size={20} />
-            <span>تواصل واتساب فوري</span>
-          </a>
-        </div>
-
       </div>
     </section>
   );
 }
-

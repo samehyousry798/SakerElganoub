@@ -1,126 +1,170 @@
-import React from 'react';
-import { X, MapPin, Calendar, Maximize2, Clock, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { 
+  X, 
+  MapPin, 
+  Calendar, 
+  Maximize2, 
+  Clock, 
+  ChevronRight, 
+  ChevronLeft, 
+  Play, 
+  Image as ImageIcon,
+  Building,
+  ShieldCheck,
+  CheckCircle2,
+  Tag
+} from 'lucide-react';
 
 export default function ProjectModal({ project, onClose }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const gallery = project?.gallery && project.gallery.length > 0 
+    ? project.gallery 
+    : project ? [{ src: project.image, caption: project.title }] : [];
+
+  const totalSlides = gallery.length;
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
+
+  // Reset slide when project changes
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [project]);
+
+  // Keyboard navigation (Esc to close, Arrow keys for slides)
+  useEffect(() => {
+    if (!project) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      } else if (e.key === 'ArrowRight') {
+        prevSlide();
+      } else if (e.key === 'ArrowLeft') {
+        nextSlide();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [project, onClose, nextSlide, prevSlide]);
+
   if (!project) return null;
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-blue-100 max-h-[90vh] flex flex-col"
+        className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200 max-h-[92vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header with image */}
-        <div className="relative h-64 sm:h-80 w-full overflow-hidden bg-slate-100">
-          <img 
-            src={project.image} 
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/20" />
-          
-          {/* Close button */}
-          <button 
-            onClick={onClose}
-            className="absolute top-4 left-4 w-10 h-10 rounded-full bg-white/90 hover:bg-white text-slate-700 hover:text-blue-600 flex items-center justify-center transition shadow-lg"
-            aria-label="إغلاق النافذة"
-          >
-            <X size={20} />
-          </button>
+        {/* Top Floating Close Button */}
+        <button 
+          onClick={onClose}
+          className="absolute top-4 left-4 z-30 w-10 h-10 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white flex items-center justify-center transition shadow-xl border border-white/20 hover:scale-105"
+          aria-label="إغلاق النافذة"
+        >
+          <X size={20} />
+        </button>
 
-          {/* Badge & Title on image */}
-          <div className="absolute bottom-4 right-4 left-4 text-white">
-            <span className="inline-block px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full mb-2 shadow">
-              {project.category}
-            </span>
-            <h3 className="text-xl sm:text-2xl font-bold text-white drop-shadow-md">
-              {project.title}
-            </h3>
+        {/* Media Viewer (Carousel) */}
+        <div className="relative h-72 sm:h-[420px] w-full bg-slate-950 flex items-center justify-center overflow-hidden select-none">
+          {/* Images Carousel */}
+          <div className="relative w-full h-full">
+              {/* Active Image */}
+              {gallery.map((img, idx) => (
+                <div
+                  key={idx}
+                  className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center ${
+                    idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none'
+                  }`}
+                >
+                  <img 
+                    src={img.src} 
+                    alt={img.caption || project.title}
+                    className="w-full h-full object-contain bg-slate-950"
+                  />
+                  {/* Bottom Vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent pointer-events-none" />
+                </div>
+              ))}
+
+              {/* Caption & Slide Counter Overlay */}
+              <div className="absolute bottom-4 right-4 left-4 z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-2 pointer-events-none">
+                <div className="max-w-xl">
+                  {gallery[currentSlide]?.caption && (
+                    <div className="inline-block px-3 py-1 bg-slate-900/80 backdrop-blur-md rounded-lg border border-white/10 text-white text-xs sm:text-sm font-medium shadow-md">
+                      {gallery[currentSlide].caption}
+                    </div>
+                  )}
+                  <h3 className="text-white text-lg sm:text-xl font-bold drop-shadow mt-1">
+                    {project.title}
+                  </h3>
+                </div>
+
+                {/* Counter indicator */}
+                {totalSlides > 1 && (
+                  <div className="px-2.5 py-1 bg-black/70 backdrop-blur-md rounded-full text-white text-xs font-semibold border border-white/15">
+                    {currentSlide + 1} / {totalSlides}
+                  </div>
+                )}
+              </div>
+
+              {/* Carousel Arrows (If multiple slides) */}
+              {totalSlides > 1 && (
+                <>
+                  <button
+                    onClick={prevSlide}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition border border-white/15 shadow-lg hover:scale-105"
+                    aria-label="الصورة السابقة"
+                  >
+                    <ChevronRight size={22} />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition border border-white/15 shadow-lg hover:scale-105"
+                    aria-label="الصورة التالية"
+                  >
+                    <ChevronLeft size={22} />
+                  </button>
+                </>
+              )}
+
+              {/* Slide Indicators (Dots) */}
+              {totalSlides > 1 && (
+                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5">
+                  {gallery.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentSlide(idx)}
+                      className={`h-2 rounded-full transition-all ${
+                        idx === currentSlide 
+                          ? 'w-7 bg-amber-400' 
+                          : 'w-2 bg-white/50 hover:bg-white/80'
+                      }`}
+                      aria-label={`انتقال للصورة ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
           </div>
         </div>
-
-        {/* Content */}
-        <div className="p-6 overflow-y-auto space-y-6">
-          {/* Quick Metrics Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-blue-50/60 rounded-xl border border-blue-100 text-center">
-            <div>
-              <div className="flex items-center justify-center gap-1 text-xs text-slate-500 mb-1">
-                <MapPin size={14} className="text-blue-600" />
-                <span>الموقع</span>
-              </div>
-              <p className="text-xs sm:text-sm font-bold text-slate-800">{project.location}</p>
-            </div>
-            <div>
-              <div className="flex items-center justify-center gap-1 text-xs text-slate-500 mb-1">
-                <Maximize2 size={14} className="text-blue-600" />
-                <span>المساحة الإجمالية</span>
-              </div>
-              <p className="text-xs sm:text-sm font-bold text-slate-800">{project.area}</p>
-            </div>
-            <div>
-              <div className="flex items-center justify-center gap-1 text-xs text-slate-500 mb-1">
-                <Clock size={14} className="text-blue-600" />
-                <span>مدة التنفيذ</span>
-              </div>
-              <p className="text-xs sm:text-sm font-bold text-slate-800">{project.duration}</p>
-            </div>
-            <div>
-              <div className="flex items-center justify-center gap-1 text-xs text-slate-500 mb-1">
-                <Calendar size={14} className="text-blue-600" />
-                <span>سنة التسليم</span>
-              </div>
-              <p className="text-xs sm:text-sm font-bold text-slate-800">{project.year}</p>
-            </div>
+        {/* Developer Info Strip */}
+        {project.developer && (
+          <div className="px-5 py-3 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-600 bg-slate-50">
+            <Building size={14} className="text-blue-600 flex-shrink-0" />
+            <span>المطور: <strong className="text-slate-900">{project.developer}</strong></span>
           </div>
+        )}
 
-          {/* Description */}
-          <div>
-            <h4 className="text-base font-bold text-slate-900 mb-2">نبذة تفصيلية عن المشروع</h4>
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              {project.description}
-            </p>
-          </div>
-
-          {/* Standards applied */}
-          <div className="border-t border-slate-100 pt-4">
-            <h4 className="text-sm font-bold text-slate-800 mb-3">المعايير المطبقة في هذا المشروع:</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-slate-600">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-emerald-500 flex-shrink-0" />
-                <span>مطابقة اشتراطات الكود الهندسي المصري</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-emerald-500 flex-shrink-0" />
-                <span>اختبارات ضبط جودة الخرسانة والتربة المعتمدة</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-emerald-500 flex-shrink-0" />
-                <span>أنظمة سلامة وعزل مائي وحراري فائقة المتانة</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-emerald-500 flex-shrink-0" />
-                <span>تسليم المشروع طبقاً للموعد الزمني التعاقدي</span>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA inside modal */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
-            <span className="text-xs text-slate-500">
-              هل لديك مشروع مماثل ترغب في تنفيذه بدقة واحترافية؟
-            </span>
-            <a
-              href="#contact"
-              onClick={onClose}
-              className="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl text-center shadow-md hover:shadow-blue-500/25 transition"
-            >
-              طلب تسعيرة لهذا النوع من المشاريع
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   );
