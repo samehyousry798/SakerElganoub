@@ -63,10 +63,7 @@ export default function App() {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   return (
@@ -103,6 +100,7 @@ export default function App() {
         {/* Contact direct floating button */}
         <a
           href="#contact"
+          onClick={(e) => { e.preventDefault(); const el = document.getElementById('contact'); if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' }); }}
           aria-label="تواصل معنا"
           className="w-13 h-13 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-lg hover:shadow-blue-600/40 hover:scale-110 active:scale-95 transition-all group relative border-2 border-white/20"
         >

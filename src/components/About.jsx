@@ -44,26 +44,26 @@ export default function About() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
                 <img
-                  src="/projects/hacienda-waters-1.jpg"
+                  src="/projects/waters-1.jpg"
                   alt="مشروع هاسيندا ووترز - الساحل الشمالي"
                   className="rounded-2xl shadow-lg object-cover w-full h-56 border-2 border-slate-100"
                 />
                 <img
-                  src="/projects/hacienda-waters-3.jpg"
-                  alt="مشروع هاسيندا ووترز - تصميم الفيلات"
+                  src="/projects/waters-2.jpg"
+                  alt="مشروع هاسيندا ووترز - معدات وتجهيز الموقع"
                   className="rounded-2xl shadow-lg object-cover w-full h-56 border-2 border-slate-100"
                 />
               </div>
               <div className="space-y-4 pt-6">
                 <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 text-slate-800">
-                  <span className="block text-2xl font-black text-blue-900 mb-1">المقر: قطاع الساحل الشمالي</span>
+                  <span className="block text-lg font-black text-blue-900 mb-1">مقر إدارة عمليات قطاع الساحل الشمالي</span>
                   <div className="flex items-center gap-1 text-xs font-medium text-slate-600 mt-1">
                     <MapPin size={13} className="text-amber-500" />
-                    <span>الإسكندرية (شاطئ النخيل) - انطلاقة لكافة المشاريع</span>
+                    <span>الإسكندرية، شاطئ النخيل (أكتوبر)، شارع 33/4</span>
                   </div>
                 </div>
                 <img
-                  src="/projects/heneish.webp"
+                  src="/projects/heneish-1.jpg"
                   alt="مشروع هاسيندا حنيش - أعمال الحفر والردم"
                   className="rounded-2xl shadow-lg object-cover w-full h-56 border-2 border-slate-100"
                 />

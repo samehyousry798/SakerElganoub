@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-  Phone, 
   Mail, 
   MapPin, 
   ArrowLeft,
@@ -140,10 +139,6 @@ export default function Footer() {
                 <span>{companyData.contact.address}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Phone size={16} className="text-blue-500 flex-shrink-0" />
-                <span dir="ltr">{companyData.contact.mobile}</span>
-              </div>
-              <div className="flex items-center gap-2.5">
                 <Mail size={16} className="text-blue-500 flex-shrink-0" />
                 <span>{companyData.contact.email}</span>
               </div>
@@ -166,7 +161,7 @@ export default function Footer() {
             جميع الحقوق محفوظة © {new Date().getFullYear()} {companyData.fullName} ({companyData.englishName})
           </p>
           <div className="flex items-center gap-4">
-            <span>المقر: قطاع الساحل الشمالي - الإسكندرية</span>
+            <span>مقر إدارة العمليات: شاطئ النخيل (أكتوبر) شارع 33/4 - الإسكندرية</span>
             <span>•</span>
             <span>سجل تجاري وبطاقة ضريبية معتمدة</span>
           </div>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Phone, 
   Mail, 
   Clock, 
   Menu, 
@@ -30,6 +29,17 @@ export default function Header() {
     { name: 'شركاؤنا', href: '#partners' },
   ];
 
+  // Instant (no animation) scroll to section
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    const id = href.replace('#', '');
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
       {/* Top Bar (Contact Information & Location) */}
@@ -44,7 +54,7 @@ export default function Header() {
               title="موقع المقر على خرائط جوجل"
             >
               <MapPin size={13} className="text-amber-400" />
-              <span>المقر: قطاع الساحل الشمالي - الإسكندرية</span>
+              <span>مقر إدارة العمليات: شاطئ النخيل (أكتوبر) شارع 33/4 - الإسكندرية</span>
             </a>
             <a 
               href={`mailto:${companyData.contact.email}`} 
@@ -58,17 +68,6 @@ export default function Header() {
               <span>{companyData.contact.workingHours}</span>
             </div>
           </div>
-
-          <div className="flex items-center gap-4">
-            <a
-              href="tel:01226883726"
-              className="inline-flex items-center gap-1.5 text-blue-100 hover:text-white font-bold transition text-xs"
-            >
-              <Phone size={13} className="text-sky-400" />
-              <span>للتواصل:</span>
-              <span dir="ltr">01226883726</span>
-            </a>
-          </div>
         </div>
       </div>
 
@@ -81,7 +80,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
           {/* Enhanced Brand Logo Presentation */}
-          <a href="#hero" className="flex items-center gap-3.5 group">
+          <a href="#hero" onClick={(e) => handleNavClick(e, '#hero')} className="flex items-center gap-3.5 group">
             {/* Real SGC Brand Logo with Perfect Transparency & Scaling */}
             <img 
               src="/logo.png" 
@@ -108,6 +107,7 @@ export default function Header() {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="px-3.5 py-2 rounded-lg text-sm font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50/80 transition-colors"
               >
                 {link.name}
@@ -119,6 +119,7 @@ export default function Header() {
           <div className="hidden sm:flex items-center gap-3">
             <a
               href="#contact"
+              onClick={(e) => handleNavClick(e, '#contact')}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-md shadow-blue-600/20 hover:shadow-lg hover:shadow-blue-600/30 active:scale-95 transition-all"
             >
               <span>تواصل معنا</span>
@@ -161,7 +162,7 @@ export default function Header() {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="px-4 py-2.5 rounded-lg text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition"
                 >
                   {link.name}
@@ -172,7 +173,7 @@ export default function Header() {
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
               <a
                 href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, '#contact')}
                 className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-center font-bold text-sm shadow-md transition"
               >
                 تواصل معنا مباشرة

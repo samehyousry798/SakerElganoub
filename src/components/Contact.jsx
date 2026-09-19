@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  Phone, 
   Mail, 
   MapPin, 
   Clock, 
@@ -150,24 +149,6 @@ export default function Contact() {
                       </a>
                     </div>
                     <p className="text-xs text-slate-400 mt-1">تصل كافة الرسائل مباشرة لمدير العمليات والإدارة الهندسية</p>
-                  </div>
-                </div>
-
-                {/* Phone */}
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
-                    <Phone size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">أرقام التواصل والعمليات</h4>
-                    <div className="mt-1 space-y-0.5" dir="ltr">
-                      <a href={`tel:${companyData.contact.mobile.replace(/\s+/g, '')}`} className="block text-slate-700 hover:text-blue-600 font-medium">
-                        {companyData.contact.mobile}
-                      </a>
-                      <a href={`tel:${companyData.contact.phone.replace(/\s+/g, '')}`} className="block text-slate-700 hover:text-blue-600 font-medium">
-                        {companyData.contact.phone}
-                      </a>
-                    </div>
                   </div>
                 </div>
 

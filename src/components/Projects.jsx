@@ -32,6 +32,7 @@ export default function Projects() {
   const regionOptions = [
     { value: 'all', label: 'كافة المناطق (All Regions)' },
     { value: 'North Coast', label: 'الساحل الشمالي (North Coast)' },
+    { value: 'El Shorouk', label: 'الشروق (El Shorouk)' },
     { value: '6th October', label: '6 أكتوبر (6th October)' },
     { value: 'New Cairo', label: 'القاهرة الجديدة (New Cairo)' },
     { value: 'Alexandria', label: 'الإسكندرية (Alexandria)' },
@@ -105,7 +106,7 @@ export default function Projects() {
             مشاريعنا الاستراتيجية والإنشائية
           </h2>
           <p className="text-slate-600 text-base sm:text-lg mt-3 leading-relaxed">
-            نوثّق مشاريعنا الرائدة بالشراكة مع كبرى شركات التطوير والمقاولات (بالم هيلز للتعمير وشركة UECC)، مجهزين أضخم أساطيل الحفر والردم والتسوية الميدانية.
+            نوثّق مشاريعنا الرائدة بالشراكة مع كبرى شركات التطوير والمقاولات (بالم هيلز للتعمير، كليوباترا للتطوير العقاري، وشركة UECC)، مجهزين أضخم أساطيل الحفر والردم والتسوية الميدانية.
           </p>
           <div className="w-24 h-1.5 bg-gradient-to-r from-amber-500 to-blue-600 rounded-full mx-auto mt-4" />
         </div>
@@ -146,9 +147,11 @@ export default function Projects() {
                     <h3 className="text-2xl sm:text-4xl font-black text-white leading-tight drop-shadow-lg">
                       {featuredProject.title}
                     </h3>
-                    <p className="text-blue-300 font-semibold text-sm sm:text-lg mt-2">
-                      {featuredProject.subtitle}
-                    </p>
+                    {featuredProject.subtitle && (
+                      <p className="text-blue-300 font-semibold text-sm sm:text-lg mt-2">
+                        {featuredProject.subtitle}
+                      </p>
+                    )}
                     <p className="text-slate-300 text-xs sm:text-sm mt-2">
                       المطور: <strong className="text-white">{featuredProject.developer}</strong>
                     </p>
@@ -347,13 +350,13 @@ export default function Projects() {
                 </div>
 
                 {/* Card Body Snippet */}
-                <div className="p-4 bg-white flex-1 flex flex-col justify-between">
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3">
-                    {project.subtitle || project.description}
-                  </p>
-
-
-                </div>
+                {(project.subtitle || project.description) && (
+                  <div className="p-4 bg-white flex-1 flex flex-col justify-between">
+                    <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3">
+                      {project.subtitle || project.description}
+                    </p>
+                  </div>
+                )}
               </div>
             ))}
           </div>

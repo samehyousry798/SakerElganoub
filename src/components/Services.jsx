@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Building2, 
-  Truck, 
+  PaintBucket,
   HardHat, 
   Layers, 
   Compass, 
@@ -24,8 +24,8 @@ export default function Services() {
         return <Tractor size={26} className="text-blue-600" />;
       case 'Building2':
         return <Building2 size={26} className="text-blue-600" />;
-      case 'Truck':
-        return <Truck size={26} className="text-blue-600" />;
+      case 'PaintBucket':
+        return <PaintBucket size={26} className="text-blue-600" />;
       case 'HardHat':
         return <HardHat size={26} className="text-blue-600" />;
       default:
